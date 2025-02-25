@@ -1,0 +1,193 @@
+{% extends "basic.html" %} {% load static %} {% block head %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'patient/checkdisease/dps.css' %}"
+/>
+<style>
+  /* Card styling */
+  .report-card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: #fff; /* white background */
+  }
+  .report-card .card-header {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  .report-card .card-body {
+    padding: 2rem;
+    background-color: #fff;
+  }
+  /* Form input styling */
+  .form-control,
+  .form-control-file,
+  .form-control:focus {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    transition: border-color 0.3s ease;
+  }
+  .form-control:focus {
+    border-color: #6a11cb;
+  }
+  /* Button styling */
+  .btn-primary {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    border: none;
+    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-primary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+</style>
+<!-- You may include jQuery (or ensure it’s already loaded) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %} {% block body %}
+<div class="container mt-5" style="max-width: 700px !important;">
+    <div class="card" style="border-radius: 10px !important; overflow: hidden !important; box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important; background-color: #fff !important;">
+      <div class="card-header" style="background-color: #fff !important; color: #333 !important; text-align: center !important; padding: 1.5rem !important; border-bottom: 1px solid #e5e5e5 !important;">
+      <h2 class="text-center">X-ray Report Generator</h2>
+      <div class="card-body" style="padding: 2rem !important; background-color: #fff !important;">
+        <form id="report-form" enctype="multipart/form-data">
+          {% csrf_token %}
+          <!-- Full-width field for file upload -->
+          <div class="form-group">
+            <label for="xray_image">Upload X-ray Image:</label>
+            <input type="file" name="xray_image" id="xray_image" accept="image/*" required class="form-control-file" style="border-radius: 5px !important; border: 1px solid #ccc !important;">
+          </div>
+          <!-- Two-column row: Classifier and Patient Name -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="classifier">Select Classifier:</label>
+                <select name="classifier" id="classifier" required class="form-control" style="border-radius: 5px !important; border: 1px solid #ccc !important;">
+                  <option value="Abdominal Trauma">Abdominal Trauma</option>
+                  <option value="Kidney Diseases">Kidney Diseases</option>
+                  <option value="Chest X-ray">Chest X-ray</option>
+                  <option value="Bone Fractures">Bone Fractures</option>
+                  <option value="Knee Osteoporosis">Knee Osteoporosis</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="patient_name">Patient Name:</label>
+                <input type="text" name="patient_name" id="patient_name" placeholder="Enter patient name" required class="form-control" style="border-radius: 5px !important; border: 1px solid #ccc !important;">
+              </div>
+            </div>
+          </div>
+          <!-- Two-column row: Patient Age and Patient Gender -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="patient_age">Patient Age:</label>
+                <input type="number" name="patient_age" id="patient_age" min="0" max="120" required class="form-control" style="border-radius: 5px !important; border: 1px solid #ccc !important;">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="patient_gender">Patient Gender:</label>
+                <select name="patient_gender" id="patient_gender" required class="form-control" style="border-radius: 5px !important; border: 1px solid #ccc !important;">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- Single column row for Examination Date -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="date">Examination Date:</label>
+                <input type="date" name="date" id="date" required class="form-control" style="border-radius: 5px !important; border: 1px solid #ccc !important;">
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" style="background: linear-gradient(to right, #6a11cb, #2575fc) !important; border: none !important; border-radius: 5px !important; transition: transform 0.3s ease, box-shadow 0.3s ease !important;">
+            Generate Report
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+    <!-- Report Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="reportModalLabel">Generated X-ray Report</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none; background: none;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <pre id="report-text" style="white-space: pre-wrap;"></pre>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="printReport" class="btn btn-secondary">Print</button>
+          <button type="button" id="saveReport" class="btn btn-secondary">Save</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $("#report-form").on("submit", function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+          url: "{% url 'generate_report' %}",
+          type: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            $("#report-text").text(response.report);
+            $("#reportModal").modal("show");
+          },
+          error: function (xhr) {
+            var errorMessage = "An unknown error occurred.";
+            if (xhr.responseJSON && xhr.responseJSON.error) {
+              errorMessage = xhr.responseJSON.error;
+            }
+            alert("Error: " + errorMessage);
+          }
+        });
+      });
+    
+      // Print button functionality
+      $("#printReport").on("click", function() {
+        var printContents = document.getElementById("report-text").innerText;
+        var printWindow = window.open("", "", "height=600,width=800");
+        printWindow.document.write("<html><head><title>Report</title></head><body>");
+        printWindow.document.write("<pre>" + printContents + "</pre>");
+        printWindow.document.write("</body></html>");
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+      });
+    
+      // Save button functionality - download report as a text file
+      $("#saveReport").on("click", function() {
+        var text = $("#report-text").text();
+        var filename = "report.txt";
+        var blob = new Blob([text], { type: "text/plain" });
+        var link = document.createElement("a");
+        link.download = filename;
+        link.href = window.URL.createObjectURL(blob);
+        link.click();
+      });
+    });
+    </script>
+    
+    {% endblock %}
+  </div>
+</div>

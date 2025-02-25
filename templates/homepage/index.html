@@ -1,0 +1,378 @@
+﻿{% extends "basic.html" %} {% load static %} {% block head %}
+<!-- Custom CSS for a modern, trendy look -->
+<style>
+  /* Hero Section */
+  .hero-section {
+    background: url("{% static 'homepage/hero-bg.jpg' %}") center center/cover
+      no-repeat;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  }
+  .hero-section .container {
+    text-align: center;
+  }
+  .hero-section h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+  }
+  .hero-section p {
+    font-size: 1.2rem;
+  }
+  .btn-custom {
+    background-color: #ff6b6b;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  .btn-custom:hover {
+    background-color: #ff4b4b;
+  }
+  /* Features Section */
+  .feature-icon {
+    width: 80px;
+    margin-bottom: 20px;
+  }
+  /* Doctors Section */
+  .doctor-card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .doctor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  .doctor-card img {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+  /* Footer */
+  .footer {
+    background-color: #222;
+    color: #bbb;
+    padding: 40px 0;
+  }
+  .footer a {
+    color: #ff6b6b;
+  }
+</style>
+{% endblock %} {% block body %}
+
+<!-- Hero Section -->
+<section class="hero-section d-flex align-items-center">
+  <div class="container">
+    <h1 class="display-4">Empower Your Health with DiagnoAI</h1>
+    <p class="lead">
+      Instant diagnosis and expert consultation at your fingertips. Explore our
+      innovative platform to take control of your well-being.
+    </p>
+    <button
+      type="button"
+      class="btn btn-custom mt-3"
+      data-toggle="modal"
+      data-target=".bd-signin-modal-lg"
+    >
+      Get Started
+    </button>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <!-- Feature 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <img
+            src="{% static 'homepage/card1.png' %}"
+            alt="AI Diagnosis"
+            class="card-img-top feature-img"
+          />
+          <div class="card-body">
+            <h5 class="card-title">AI Diagnosis</h5>
+            <p class="card-text">
+              Cutting-edge AI analyzes your symptoms and X-rays for quick,
+              accurate diagnosis.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Feature 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <img
+            src="{% static 'homepage/card2.png' %}"
+            alt="Online Consultation"
+            class="card-img-top feature-img"
+          />
+          <div class="card-body">
+            <h5 class="card-title">Online Consultation</h5>
+            <p class="card-text">
+              Connect with our network of expert doctors anytime, anywhere for
+              personalized care.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Feature 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <img
+            src="{% static 'homepage/card3.png' %}"
+            alt="Health Insights"
+            class="card-img-top feature-img"
+          />
+          <div class="card-body">
+            <h5 class="card-title">Health Insights</h5>
+            <p class="card-text">
+              Receive detailed reports and insights to stay informed about your
+              condition.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Custom CSS to ensure images are uniformly sized -->
+<style>
+  .feature-img {
+    width: 100%;
+    height: 300px; /* Adjust this value for desired height */
+    object-fit: cover;
+  }
+</style>
+
+<!-- Our Doctors Section -->
+<!-- CSS for standardizing image sizes -->
+<style>
+  .doctor-card .card-img-top {
+    height: 450px; /* Adjust height as needed */
+    object-fit: cover;
+    width: 100%;
+  }
+</style>
+
+<!-- Our Doctors Section -->
+<section id="our-doctors" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-5">Meet Our Medical Experts</h2>
+      <p class="lead">
+        Our team of experienced professionals is here to guide you towards
+        better health.
+      </p>
+    </div>
+    <div class="row">
+      <!-- Doctor 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="card doctor-card">
+          <img
+            src="{% static 'homepage/doc1.png' %}"
+            class="card-img-top"
+            alt="Dr. Manish Bansal"
+          />
+          <div class="card-body">
+            <h5 class="card-title">Dr. Manish Bansal</h5>
+            <p class="card-text">
+              <strong>Specialization:</strong> Orthopedics<br />
+              <strong>Experience:</strong> 15 Years<br />
+              <strong>Qualifications:</strong> MBBS, MS (Orthopedics) &amp;
+              Fellowship in Sports Medicine<br />
+              <strong>Clinic:</strong> Radaur, Yamuna Nagar, Haryana
+            </p>
+          </div>
+          <div class="card-footer text-center bg-white">
+            <a href="#" class="btn btn-custom btn-sm">Contact</a>
+          </div>
+        </div>
+      </div>
+      <!-- Doctor 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="card doctor-card">
+          <img
+            src="{% static 'homepage/doc2.png' %}"
+            class="card-img-top"
+            alt="Dr. Bansal Jatinder Paul"
+          />
+          <div class="card-body">
+            <h5 class="card-title">Dr. Bansal Jatinder Paul</h5>
+            <p class="card-text">
+              <strong>Specialization:</strong> General Medicine<br />
+              <strong>Experience:</strong> 12 Years<br />
+              <strong>Qualifications:</strong> MBBS, MD (General Medicine)<br />
+              <strong>Clinic:</strong> Sangrur, Punjab
+            </p>
+          </div>
+          <div class="card-footer text-center bg-white">
+            <a href="#" class="btn btn-custom btn-sm">Contact</a>
+          </div>
+        </div>
+      </div>
+      <!-- Doctor 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="card doctor-card">
+          <img
+            src="{% static 'homepage/doc3.png' %}"
+            class="card-img-top"
+            alt="Dr. Radhika Swaroop"
+          />
+          <div class="card-body">
+            <h5 class="card-title">Dr. Radhika Swaroop</h5>
+            <p class="card-text">
+              <strong>Specialization:</strong> Radiology<br />
+              <strong>Experience:</strong> 10 Years<br />
+              <strong>Qualifications:</strong> MBBS, DMRD (Diagnostic
+              Radiology)<br />
+              <strong>Clinic:</strong> Jaipur
+            </p>
+          </div>
+          <div class="card-footer text-center bg-white">
+            <a href="#" class="btn btn-custom btn-sm">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Section -->
+<footer class="footer">
+  <div class="container text-center">
+    <p>
+      Email: <a href="mailto:krinal0510@gmail.com">krinal0510@gmail.com</a> |
+      Contact: <a href="tel:7021958451">7021958451</a> | Address: Mumbai,
+      Maharashtra
+    </p>
+    <p>&copy; 2025 <a href="#">DiagnoAI.com</a></p>
+  </div>
+</footer>
+
+<!-- Sign In Modal -->
+<div
+  class="modal fade bd-signin-modal-lg"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="signinModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content p-4">
+      <div class="modal-header border-0">
+        <h4 class="modal-title" id="signinModalLabel">Sign In As</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="row">
+          <div class="col-md-6">
+            <a href="{% url 'sign_in_doctor' %}">
+              <img
+                src="{% static 'homepage/doctor.png' %}"
+                alt="Doctor"
+                class="img-fluid"
+                style="max-width: 150px"
+              />
+              <h5 class="mt-2">Doctor</h5>
+            </a>
+          </div>
+          <div class="col-md-6">
+            <a href="{% url 'sign_in_patient' %}">
+              <img
+                src="{% static 'homepage/patient.png' %}"
+                alt="Patient"
+                class="img-fluid"
+                style="max-width: 150px"
+              />
+              <h5 class="mt-2">Patient</h5>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sign Up Modal -->
+<div
+  class="modal fade bd-signup-modal-lg"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="signupModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content p-4">
+      <div class="modal-header border-0">
+        <h4 class="modal-title" id="signupModalLabel">Sign Up As</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="row">
+          <div class="col-md-6">
+            <a href="{% url 'signup_doctor' %}">
+              <img
+                src="{% static 'homepage/doctor.png' %}"
+                alt="Doctor"
+                class="img-fluid"
+                style="max-width: 150px"
+              />
+              <h5 class="mt-2">Doctor</h5>
+            </a>
+          </div>
+          <div class="col-md-6">
+            <a href="{% url 'signup_patient' %}">
+              <img
+                src="{% static 'homepage/patient.png' %}"
+                alt="Patient"
+                class="img-fluid"
+                style="max-width: 150px"
+              />
+              <h5 class="mt-2">Patient</h5>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery, Popper.js, Bootstrap JS -->
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha384-tsQFqpERiu2mSJ7y2z6kH+7/Z9Q+KMo4apF2KknfXxZpOGP5avH1/OW33jo2L8p2"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  crossorigin="anonymous"
+></script>
+
+{% endblock %}
