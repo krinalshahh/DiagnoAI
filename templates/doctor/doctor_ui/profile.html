@@ -1,120 +1,156 @@
-{% extends "basic.html" %}
-{% load static %}
-
- 
-    {% block head %}
-    
-{% endblock %}
-
-
-
-
-{% block body %}
-
-
-
-<br>
+{% extends "basic.html" %} {% load static %} {% block head %}
+<style>
+  /* Profile Card Styling */
+  .profile-card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  .profile-card .card-img-top {
+    height: 300px;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  /* Function Card Styling */
+  .function-card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    min-height: 220px;
+  }
+  .function-card:hover {
+    transform: translateY(-5px);
+  }
+  .function-card .card-body {
+    padding: 1.5rem;
+  }
+  .function-card i {
+    font-size: 3rem;
+    color: #17a2b8;
+  }
+</style>
+{% endblock %} {% block body %}
+<br />
 <div class="container mt-3 mb-3">
-<center><h2>Doctor Profile</h2>
-</center><br>
-
-
-
-
-    <div class="row">
-        <div class="col" >
-
-            <div class="card" style="width:350px">
-                <img class="card-img-top" src="{% static 'homepage/doctor.png' %}" alt="Card image" style="width:100%;">
-                <div class="card-body">
-                  <h4 class="card-title">Doctor name : {{user.doctor.name}}</h4>
-                  <p class="card-text">Doctor ID - {{user.doctor.user_id}}</p>
-                  <p class="card-text">Doctor email - {{user.email}}</p>
-                  <a href="{% url 'dviewprofile' user.username %}" class="btn btn-primary">View Profile</a>
-                </div>
-              </div>
-
+  <center>
+    <h2>Doctor Profile</h2>
+  </center>
+  <br />
+  <div class="row">
+    <!-- Left Column: Doctor Profile Card -->
+    <div class="col-md-4">
+      <div class="card profile-card" style="width: 350px">
+        <img
+          class="card-img-top"
+          src="{% static 'homepage/doctor.png' %}"
+          alt="Doctor Image"
+        />
+        <div class="card-body">
+          <h4 class="card-title">Doctor Name: {{ user.doctor.name }}</h4>
+          <p class="card-text">Doctor ID: {{ user.doctor.user_id }}</p>
+          <p class="card-text">Doctor Email: {{ user.email }}</p>
+          <a
+            href="{% url 'dviewprofile' user.username %}"
+            class="btn btn-primary"
+            >View Profile</a
+          >
         </div>
-
-
-        <div class="col" >
-             
-            <div class="row">
-             <a class="btn btn-outline-info btn-block" href="{% url 'dconsultation_history' %}">view consulation history</a><br>
-             </div>
-
-
-                <div class="row">
-                    <button class="btn btn-outline-info btn-block" data-toggle="modal" data-target="#myModal-feedback">Give feedbacks </button><br>
-                    </div>
-                    <div class="row">
-            
-                      <a id="links" class="btn btn-outline-info btn-block" href="{% url 'ScanX-ray' %}">check disease </a><br>
-                      </div>
-                       
-    
-                    <!-- The Modal -->
-      <div class="modal fade" id="myModal-feedback">
-        <div class="modal-dialog modal-xl ">
-          <div class="modal-content">
-          
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Feedbacks</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+    </div>
+    <!-- Right Column: Function Cards -->
+    <div class="col-md-8">
+      <!-- First Row: Two Function Cards -->
+      <div class="row">
+        <!-- Consultation History Card -->
+        <div class="col-md-6 mb-3">
+          <div class="card function-card">
+            <div class="card-body text-center">
+              <i class="fa fa-history" aria-hidden="true"></i>
+              <h5 class="card-title mt-2">Consultation History</h5>
+              <a
+                href="{% url 'dconsultation_history' %}"
+                class="btn btn-outline-info btn-block mt-2"
+                >View History</a
+              >
             </div>
-            
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form action="post_feedback" method="POST">   {% csrf_token %}
-                  <div class="form-group">
-                    <label for="comment">Give feeback:</label>
-                    <textarea class="form-control" rows="5" id="feedback" name="feedback"></textarea>
-                  </div>
-                  
+          </div>
+        </div>
+        <!-- Scan X-ray Card -->
+        <div class="col-md-6 mb-3">
+          <div class="card function-card">
+            <div class="card-body text-center">
+              <i class="fa fa-file-medical-alt" aria-hidden="true"></i>
+              <h5 class="card-title mt-2">Scan X-ray</h5>
+              <a
+                id="links"
+                class="btn btn-outline-info btn-block mt-2"
+                href="{% url 'generate_report' %}"
+                >Scan X-ray</a
+              >
             </div>
-            
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button id="submit" type="submit" class="btn btn-success" data-dismiss="modal" style="color: white;">Submit</button>
-            </div>
-                </form>
-            
           </div>
         </div>
       </div>
-    
-                   
-    
-            </div>
+      <!-- Second Row: Feedback Card -->
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div class="modal fade" id="myModal-feedback">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Feedbacks</h4>
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
         </div>
-    
-    <script>
-    
-    
-      $(document).ready(function() {
-    
-        $('#submit').click( function(event){
-      
-          $.ajax({
-              url :"{% url 'post_feedback' %}",
-              type : "POST",
-              data : { feedback : $('#feedback').val(),
-              csrfmiddlewaretoken : $('input[name=csrfmiddlewaretoken]').val()
-             },
-      
-              success : function(data){
-                  alert(data);
-              }
-          });
-      
-      
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form action="{% url 'post_feedback' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="feedback">Give Feedback:</label>
+              <textarea
+                class="form-control"
+                rows="5"
+                id="feedback"
+                name="feedback"
+                placeholder="Enter your feedback here..."
+              ></textarea>
+            </div>
+            <button id="submit" type="submit" class="btn btn-success">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback AJAX Script -->
+  <script>
+    $(document).ready(function () {
+      $("#submit").click(function (event) {
+        event.preventDefault();
+        $.ajax({
+          url: "{% url 'post_feedback' %}",
+          type: "POST",
+          data: {
+            feedback: $("#feedback").val(),
+            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+          },
+          success: function (data) {
+            alert(data);
+          },
+        });
       });
-          
-       });
-    
-    </script>
-    
-      
-  
+    });
+  </script>
+</div>
+
 {% endblock %}
