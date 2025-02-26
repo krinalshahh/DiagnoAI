@@ -9,7 +9,7 @@
 - **Automated X-ray Image Analysis** using deep learning models.
 - **Symptom-Based Disease Prediction** powered by machine learning.
 - **AI-Generated Medical Reports** with professional formatting.
-- **User-Friendly Web Application** built with Django and Streamlit.
+- **User-Friendly Web Application** built with Django and HTML,CSS,Javascript.
 - **Scalable & Deployable on Cloud or Local Servers.**
 
 ---
@@ -54,11 +54,14 @@ Model predictions are processed by **Large Language Models (LLMs)** to generate 
 
 ### **4. User Interface & Deployment**
 
-**Web Application (Streamlit & Django):**
+**Web Application:**
 
 - **Upload X-ray Images** for analysis.
 - **Get Instant AI-Generated Reports.**
 - **Predict Diseases** based on symptoms.
+
+**Output Screenshots: **
+https://drive.google.com/file/d/16Z-G7SqpX6AaAhfVNXVR_ToGR_MQK7pL/view?usp=drive_link
 
 **Deployment Options:**
 
