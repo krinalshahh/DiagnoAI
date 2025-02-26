@@ -66,7 +66,6 @@ https://drive.google.com/file/d/16Z-G7SqpX6AaAhfVNXVR_ToGR_MQK7pL/view?usp=drive
 **Deployment Options:**
 
 - **Local Server:** Django & PostgreSQL.
-- **Cloud Deployment:** AWS, Azure, or GCP.
 
 ---
 
