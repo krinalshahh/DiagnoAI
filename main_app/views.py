@@ -16,7 +16,6 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-# Ensure your GOOGLE_API_KEY is set (replace with your key)
 if "GOOGLE_API_KEY" not in os.environ:
     os.environ["GOOGLE_API_KEY"] = "AIzaSyDgporlrHPLX7GxNRLJ9VxFA76wU55NFFc"
 

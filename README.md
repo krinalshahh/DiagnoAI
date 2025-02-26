@@ -115,7 +115,9 @@ Model predictions are processed by **Large Language Models (LLMs)** to generate 
 ### **Local Installation**
 
 1. **Database Setup:**  
-   Ensure **PostgreSQL** is installed and create a new database named **predico**.
+    First make sure **PostgreSQL** and pgadmin is install in your system.
+   then you have to manually create a DB instance on PostgreSQL named **DiagnoAI**, better use PgAdmin for that.
+   make a new environment(recommended) and run...
 
 2. **Install Dependencies:**
    ```bash

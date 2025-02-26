@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'disease_prediction.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'predico',
+        'NAME': 'DiagnoAI',
         'USER': 'postgres',
         'PASSWORD': '123',
         'HOST': 'localhost'
