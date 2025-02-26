@@ -60,7 +60,7 @@ Model predictions are processed by **Large Language Models (LLMs)** to generate 
 - **Get Instant AI-Generated Reports.**
 - **Predict Diseases** based on symptoms.
 
-**Output Screenshots: **
+**Output Screenshots:**
 https://drive.google.com/file/d/16Z-G7SqpX6AaAhfVNXVR_ToGR_MQK7pL/view?usp=drive_link
 
 **Deployment Options:**
